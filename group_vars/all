@@ -1,0 +1,4 @@
+---
+ec2_tag_Name: none
+docker_auth: your_auth_key_goes_here
+docker_email: your_email_goes_here
