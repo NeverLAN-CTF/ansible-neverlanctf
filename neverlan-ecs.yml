@@ -1,0 +1,48 @@
+---
+- name: Setup EC2 instances for use with ECS
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+
+    - name: Provision ECS container instance
+      ec2:
+        instance_type: t2.micro
+        image: "{{ ami_id }}"
+        key_name: neverlanctf
+        wait: true
+        exact_count: 2
+        count_tag:
+          Name: neverlanctf 
+        instance_tags:
+          Name: neverlanctf 
+        vpc_subnet_id: subnet-898096a1
+        assign_public_ip: yes
+        instance_profile_name: ecsInstanceRole
+        region: us-east-1
+        group: neverlanctf
+      register: ec2
+
+    - name: Add all instance public IPs to host group
+      add_host:
+        hostname: "{{ item.public_ip }}"
+        groups: ec2hosts
+      with_items: ec2.instances
+
+- name: Provision EC2 hosts for use with ECS
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Add Docker Hub authentication for private repositories
+      template:
+        src: templates/ecs.config.j2
+        dest: /etc/ecs/ecs.config
+      notify: Restart ecs
+      when: ec2_tag_Name == "neverlanctf"
+
+  handlers:
+    - name: Restart ecs
+      shell: stop ecs && start ecs
