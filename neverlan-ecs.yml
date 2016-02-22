@@ -22,6 +22,7 @@
         instance_profile_name: ecsInstanceRole
         region: us-east-1
         group: neverlanctf
+        termination_protection: yes
       register: ec2
 
     - name: Add all instance public IPs to host group
