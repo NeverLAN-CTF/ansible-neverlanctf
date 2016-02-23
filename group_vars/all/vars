@@ -1,0 +1,6 @@
+---
+ec2_tag_Name: none
+docker_auth: "{{ vault_docker_auth }}"
+docker_email: "{{ vault_docker_email }}"
+mysql_user: "{{ vault_mysql_user }}"
+mysql_password: "{{ vault_mysql_password }}"
