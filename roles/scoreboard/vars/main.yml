@@ -1,6 +1,0 @@
----
-ami_id: ami-4600372c
-docker_auth: your_docker_auth_code
-docker_email: your_docker_email
-mysql_user: your_user
-mysql_password: your_password

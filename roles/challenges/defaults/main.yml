@@ -1,2 +1,5 @@
 ---
 ec2_tag_Name: none
+ami_id: ami-4600372c
+docker_auth: your_docker_auth_code
+docker_email: your_docker_email
