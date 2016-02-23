@@ -75,6 +75,14 @@
     family: scoreboard
     region: us-east-1
 
+- name: Setup ECS service for scoreboard on scoreboard cluster
+  ecs_service:
+    name: scoreboard
+    cluster: neverlan_scoreboard
+    task_definition: scoreboard:18
+    state: present
+    desired_count: 1
+
 - name: Provision ECS container instance for scoreboard
   ec2:
     instance_type: t2.micro
