@@ -3,141 +3,17 @@
   hosts: localhost
   connection: local
   gather_facts: False
-
+  roles:
+    - scoreboard
   tasks:
-
-    - name: Setup ECS cluster for scoreboard
-      ecs_cluster:
-        name: neverlan_scoreboard
-        state: present
-        region: us-east-1
-
-    - name: Setup ECS task definition for scoreboard on neverlan_ctf cluster
-      ecs_taskdefinition:
-
-        containers:
-
-        - name: ctfd
-          cpu: 50
-          essential: true
-          image: neverlanctf/ctfd
-          memory: 128
-          portMappings:
-            - containerPort: 8000
-              hostPort: 80
-          volumesFrom:
-            - sourceContainer: datastore
-          links:
-            - "mariadb:mariadb"
-          environment:
-            - name: MYSQL_USER
-              value: "{{ mysql_user }}"
-            - name: MYSQL_PASSWORD
-              value: "{{ mysql_password }}"
-
-        - name: mariadb
-          cpu: 50
-          essential: true
-          image: mariadb
-          memory: 512
-          volumesFrom:
-            - sourceContainer: datastore
-          environment:
-            - name: MYSQL_RANDOM_ROOT_PASSWORD
-              value: "true"
-            - name: MYSQL_DATABASE
-              value: ctfd
-            - name: MYSQL_USER
-              value: "{{ mysql_user }}"
-            - name: MYSQL_PASSWORD
-              value: "{{ mysql_password }}"
-
-        - name: datastore
-          cpu: 10
-          essential: true
-          image: busybox
-          memory: 128
-          command:
-            - tail
-            - "-f"
-            - /dev/null
-          mountPoints:
-          - sourceVolume: logs
-            containerPath: /var/lib/mysql
-          - sourceVolume: mysql
-            containerPath: /opt/CTFd/CTFd/logs
-
-        volumes:
-          - name: logs
-            host:
-              sourcePath: /opt/CTFd/CTFd/logs
-          - name: mysql
-            host:
-              sourcePath: /var/lib/mysql
-
-        state: present
-        family: scoreboard
-        region: us-east-1
-
     - name: Setup ECS cluster for challenges
       ecs_cluster:
         name: neverlan_challenges
         state: present
         region: us-east-1
 
-    - name: Provision ECS container instance for scoreboard
-      ec2:
-        instance_type: t2.micro
-        image: "{{ ami_id }}"
-        key_name: neverlanctf
-        wait: true
-        exact_count: 1
-        count_tag:
-          Name: neverlan_scoreboard
-        instance_tags:
-          Name: neverlan_scoreboard
-        vpc_subnet_id: subnet-898096a1
-        assign_public_ip: yes
-        instance_profile_name: ecsInstanceRole
-        region: us-east-1
-        group: neverlanctf
-        termination_protection: yes
-      register: scoreboard
-
-    - name: Assign Elastic IP to scoreboard EC2 instance
-      ec2_eip:
-        device_id: "{{ item.id }}"
-        public_ip: 52.0.76.53
-        in_vpc: true
-        region: us-east-1
-        state: present
-      with_items: scoreboard.instances
-
-
 - name: Provision EC2 hosts for use with ECS
   hosts: all
   become: true
-
-  tasks:
-
-    - name: Add Docker Hub authentication for private repositories
-      template:
-        src: templates/ecs.config.j2
-        dest: /etc/ecs/ecs.config
-      notify: Restart ecs step 1
-      when: ec2_tag_Name == "neverlan_scoreboard" or
-            ec2_tag_Name == "neverlan_challenges"
-
-  handlers:
-    - name: Restart ecs step 1
-      shell: stop ecs
-      notify: Restart ecs step 2
-
-    - name: Restart ecs step 2
-      file:
-        path: /var/lib/ecs/data/ecs_agent_data.json
-        state: absent
-      notify: Restart ecs step 3
-
-    - name: Restart ecs step 3
-      shell: start ecs
+  roles:
+    - scoreboard
