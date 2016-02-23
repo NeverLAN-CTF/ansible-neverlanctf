@@ -1,0 +1,22 @@
+---
+- name: Restart ecs step 1
+  shell: stop ecs
+  notify: Restart ecs step 2
+
+- name: Restart ecs step 2
+  file:
+    path: /var/lib/ecs/data/ecs_agent_data.json
+    state: absent
+  notify: Restart ecs step 3
+
+- name: Restart ecs step 3
+  shell: start ecs
+
+- name: Assign Elastic IP to challenges EC2 instance
+  ec2_eip:
+    device_id: "{{ item.id }}"
+    public_ip: 52.86.18.150
+    in_vpc: true
+    region: us-east-1
+    state: present
+  with_items: challenges.instances

@@ -1,0 +1,6 @@
+---
+- name: Add Docker Hub authentication for private repositories
+  template:
+    src: templates/ecs.config.j2
+    dest: /etc/ecs/ecs.config
+  notify: Restart ecs step 1

@@ -1,0 +1,26 @@
+---
+- name: Setup ECS cluster for challenges
+  ecs_cluster:
+    name: neverlan_challenges
+    state: present
+    region: us-east-1
+
+- name: Provision ECS container instance for challenges 
+  ec2:
+    instance_type: t2.micro
+    image: "{{ ami_id }}"
+    key_name: neverlanctf
+    wait: true
+    exact_count: 1
+    count_tag:
+      Name: neverlan_challenges
+    instance_tags:
+      Name: neverlan_challenges
+    vpc_subnet_id: subnet-898096a1
+    assign_public_ip: yes
+    instance_profile_name: ecsInstanceRole
+    region: us-east-1
+    group: neverlanctf
+    termination_protection: yes
+  register: challenges
+  notify: Assign Elastic IP to challenges EC2 instance

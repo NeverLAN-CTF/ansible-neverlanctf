@@ -5,15 +5,11 @@
   gather_facts: False
   roles:
     - scoreboard
-  tasks:
-    - name: Setup ECS cluster for challenges
-      ecs_cluster:
-        name: neverlan_challenges
-        state: present
-        region: us-east-1
+    - challenges
 
 - name: Provision EC2 hosts for use with ECS
   hosts: all
   become: true
   roles:
     - scoreboard
+    - challenges
