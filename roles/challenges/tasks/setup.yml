@@ -5,37 +5,8 @@
     state: present
     region: us-east-1
 
-- name: Setup ECS service for console on challenges cluster
-  ecs_service:
-    name: console
-    cluster: neverlan_challenges
-    task_definition: console:1
-    state: present
-    desired_count: 1
-
-- name: Setup ECS service for runme on challenges cluster
-  ecs_service:
-    name: runme
-    cluster: neverlan_challenges
-    task_definition: runme:1
-    state: present
-    desired_count: 1
-
-- name: Setup ECS service for sql_fun1 on challenges cluster
-  ecs_service:
-    name: sql_fun1
-    cluster: neverlan_challenges
-    task_definition: sql_fun1:1
-    state: present
-    desired_count: 1
-
-- name: Setup ECS service for sql_fun2 on challenges cluster
-  ecs_service:
-    name: sql_fun2
-    cluster: neverlan_challenges
-    task_definition: sql_fun2:1
-    state: present
-    desired_count: 1
+- include: setup-task-definitions.yml
+- include: setup-services.yml
 
 - name: Provision ECS container instance for challenges
   ec2:
@@ -43,16 +14,14 @@
     image: "{{ ami_id }}"
     key_name: neverlanctf
     wait: true
-    exact_count: 1
+    exact_count: 2
     count_tag:
       Name: neverlan_challenges
     instance_tags:
       Name: neverlan_challenges
     vpc_subnet_id: subnet-898096a1
-    assign_public_ip: yes
     instance_profile_name: ecsInstanceRole
     region: us-east-1
     group: neverlanctf
-    termination_protection: yes
   register: challenges
-  notify: Assign Elastic IP to challenges EC2 instance
+  notify: Add ECS container instances to challenges ELB

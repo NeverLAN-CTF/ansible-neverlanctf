@@ -10,10 +10,10 @@
     containers:
 
     - name: ctfd
-      cpu: 50
+      cpu: 256
       essential: true
       image: neverlanctf/ctfd
-      memory: 128
+      memory: 384
       portMappings:
         - containerPort: 8000
           hostPort: 80
@@ -32,7 +32,7 @@
       #  - /dev/null
 
     - name: mariadb
-      cpu: 50
+      cpu: 512
       essential: true
       image: mariadb
       memory: 512
@@ -49,10 +49,10 @@
           value: "{{ mysql_password }}"
 
     - name: datastore
-      cpu: 10
+      cpu: 32
       essential: true
       image: busybox
-      memory: 128
+      memory: 32
       command:
         - tail
         - "-f"
@@ -79,7 +79,7 @@
   ecs_service:
     name: scoreboard
     cluster: neverlan_scoreboard
-    task_definition: scoreboard:18
+    task_definition: scoreboard
     state: present
     desired_count: 1
 
@@ -95,10 +95,8 @@
     instance_tags:
       Name: neverlan_scoreboard
     vpc_subnet_id: subnet-898096a1
-    assign_public_ip: yes
     instance_profile_name: ecsInstanceRole
     region: us-east-1
     group: neverlanctf
     termination_protection: yes
   register: scoreboard
-  notify: Assign Elastic IP to scoreboard EC2 instance

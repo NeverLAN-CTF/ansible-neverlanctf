@@ -1,0 +1,13 @@
+---
+- name: Setup scoreboard EC2 instances for use with ECS
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  roles:
+    - scoreboard
+
+- name: Provision scoreboard EC2 instances for use with ECS
+  hosts: all
+  become: true
+  roles:
+    - scoreboard

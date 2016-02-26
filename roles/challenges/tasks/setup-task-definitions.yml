@@ -1,0 +1,90 @@
+---
+- name: Setup ECS task definition for console on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: console
+      cpu: 64
+      essential: true
+      image: neverlanctf/console
+      memory: 64
+      portMappings:
+        - containerPort: 80
+          hostPort: 8081
+    state: present
+    family: console
+    region: us-east-1
+
+- name: Setup ECS task definition for sql_fun1 on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: sql_fun1
+      cpu: 64
+      essential: true
+      image: neverlanctf/sql_fun1
+      memory: 64
+      portMappings:
+        - containerPort: 80
+          hostPort: 8082
+    state: present
+    family: sql_fun1
+    region: us-east-1
+
+- name: Setup ECS task definition for sql_fun2 on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: sql_fun2
+      cpu: 64
+      essential: true
+      image: neverlanctf/sql_fun2
+      memory: 64
+      portMappings:
+        - containerPort: 80
+          hostPort: 8083
+    state: present
+    family: sql_fun2
+    region: us-east-1
+
+- name: Setup ECS task definition for javascript_password on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: javascript_password
+      cpu: 64
+      essential: true
+      image: neverlanctf/javascript_password
+      memory: 64
+      portMappings:
+        - containerPort: 80
+          hostPort: 8084
+    state: present
+    family: javascript_password
+    region: us-east-1
+
+- name: Setup ECS task definition for bringing_it_all_together on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: bringing_it_all_together
+      cpu: 64
+      essential: true
+      image: neverlanctf/bringing_it_all_together
+      memory: 64
+      portMappings:
+        - containerPort: 80
+          hostPort: 8085
+    state: present
+    family: bringing_it_all_together
+    region: us-east-1
+
+- name: Setup ECS task definition for know_your_shortcuts on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: know_your_shortcuts
+      cpu: 64
+      essential: true
+      image: neverlanctf/know_your_shortcuts
+      memory: 64
+      portMappings:
+        - containerPort: 80
+          hostPort: 8086
+    state: present
+    family: know_your_shortcuts
+    region: us-east-1

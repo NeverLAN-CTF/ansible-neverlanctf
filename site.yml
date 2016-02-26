@@ -1,0 +1,4 @@
+---
+- name: Bring up NeverLAN CTF Infrastructure
+  include: scoreboard.yml
+  include: challenges.yml

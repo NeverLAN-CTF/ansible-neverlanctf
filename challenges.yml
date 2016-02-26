@@ -1,15 +1,13 @@
 ---
-- name: Setup EC2 instances for use with ECS
+- name: Setup challenges EC2 instances for use with ECS
   hosts: localhost
   connection: local
   gather_facts: False
   roles:
-    - scoreboard
     - challenges
 
-- name: Provision EC2 hosts for use with ECS
+- name: Provision challenges EC2 instances for use with ECS
   hosts: all
   become: true
   roles:
-    - scoreboard
     - challenges
