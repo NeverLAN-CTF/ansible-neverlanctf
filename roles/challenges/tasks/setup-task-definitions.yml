@@ -163,3 +163,18 @@
     state: present
     family: sqli_fun1
     region: us-east-1
+
+- name: Setup ECS task definition for sqli_fun2 on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: sqli_fun2
+      cpu: 256
+      essential: true
+      image: neverlanctf/sqli_fun2
+      memory: 256
+      portMappings:
+        - containerPort: 5000
+          hostPort: 8092
+    state: present
+    family: sqli_fun2
+    region: us-east-1

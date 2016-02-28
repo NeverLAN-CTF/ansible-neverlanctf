@@ -86,3 +86,11 @@
     task_definition: sqli_fun1
     state: present
     desired_count: 2
+
+- name: Setup ECS service for sqli_fun2 on challenges cluster
+  ecs_service:
+    name: sqli_fun2
+    cluster: neverlan_challenges_medium
+    task_definition: sqli_fun2
+    state: present
+    desired_count: 2
