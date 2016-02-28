@@ -1,6 +1,6 @@
 # Ansible Playbook to build and deploy NeverLAN CTF  
 
-    ansible-playbook -i ec2.py -u ec2-user --ask-vault-pass neverlan-ecs.yml  
+    ansible-playbook -i ec2.py -u ec2-user --ask-vault-pass site.yml  
 
 Run this command once to create the EC2 instances and a second time,
 after they are available with SSH, to provision the hosts as it takes several minutes for SSH to become
