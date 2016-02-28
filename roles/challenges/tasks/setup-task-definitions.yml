@@ -18,10 +18,10 @@
   ecs_taskdefinition:
     containers:
     - name: sql_fun1
-      cpu: 64
+      cpu: 256
       essential: true
       image: neverlanctf/sql_fun1
-      memory: 64
+      memory: 256
       portMappings:
         - containerPort: 80
           hostPort: 8082
@@ -33,10 +33,10 @@
   ecs_taskdefinition:
     containers:
     - name: sql_fun2
-      cpu: 64
+      cpu: 256
       essential: true
       image: neverlanctf/sql_fun2
-      memory: 64
+      memory: 256
       portMappings:
         - containerPort: 80
           hostPort: 8083
@@ -87,4 +87,79 @@
           hostPort: 8086
     state: present
     family: know_your_shortcuts
+    region: us-east-1
+
+- name: Setup ECS task definition for Cookie_Monster on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: cookie_monster
+      cpu: 64
+      essential: true
+      image: neverlanctf/cookie_monster
+      memory: 64
+      portMappings:
+        - containerPort: 80
+          hostPort: 8087
+    state: present
+    family: cookie_monster
+    region: us-east-1
+
+- name: Setup ECS task definition for antihuman on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: antihuman
+      cpu: 128
+      essential: true
+      image: neverlanctf/antihuman
+      memory: 128
+      portMappings:
+        - containerPort: 3000
+          hostPort: 8088
+    state: present
+    family: antihuman
+    region: us-east-1
+
+- name: Setup ECS task definition for bigantihuman on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: bigantihuman
+      cpu: 128
+      essential: true
+      image: neverlanctf/bigantihuman
+      memory: 128
+      portMappings:
+        - containerPort: 3000
+          hostPort: 8089
+    state: present
+    family: bigantihuman
+    region: us-east-1
+
+- name: Setup ECS task definition for arch_dark on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: arch_dark
+      cpu: 128
+      essential: true
+      image: neverlanctf/arch_dark
+      memory: 128
+      portMappings:
+        - containerPort: 22
+          hostPort: 8090
+    state: present
+    family: arch_dark
+    region: us-east-1
+
+- name: Setup ECS task definition for sqli_fun1 on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: sqli_fun1
+      cpu: 256
+      essential: true
+      image: neverlanctf/sqli_fun1
+      memory: 256
+      portMappings:
+        - containerPort: 5000
+          hostPort: 8091
+    state: present
+    family: sqli_fun1
     region: us-east-1

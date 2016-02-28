@@ -1,7 +1,7 @@
 ---
 - name: Setup ECS cluster for challenges
   ecs_cluster:
-    name: neverlan_challenges
+    name: neverlan_challenges_medium
     state: present
     region: us-east-1
 
@@ -10,15 +10,15 @@
 
 - name: Provision ECS container instance for challenges
   ec2:
-    instance_type: t2.micro
+    instance_type: t2.medium
     image: "{{ ami_id }}"
     key_name: neverlanctf
     wait: true
     exact_count: 2
     count_tag:
-      Name: neverlan_challenges
+      Name: neverlan_challenges_medium
     instance_tags:
-      Name: neverlan_challenges
+      Name: neverlan_challenges_medium
     vpc_subnet_id: subnet-898096a1
     instance_profile_name: ecsInstanceRole
     region: us-east-1

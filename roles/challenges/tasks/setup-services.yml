@@ -2,47 +2,87 @@
 - name: Setup ECS service for console on challenges cluster
   ecs_service:
     name: console
-    cluster: neverlan_challenges
+    cluster: neverlan_challenges_medium
     task_definition: console
     state: present
-    desired_count: 1
+    desired_count: 2
 
 - name: Setup ECS service for sql_fun1 on challenges cluster
   ecs_service:
     name: sql_fun1
-    cluster: neverlan_challenges
+    cluster: neverlan_challenges_medium
     task_definition: sql_fun1
     state: present
-    desired_count: 1
+    desired_count: 2
 
 - name: Setup ECS service for sql_fun2 on challenges cluster
   ecs_service:
     name: sql_fun2
-    cluster: neverlan_challenges
+    cluster: neverlan_challenges_medium
     task_definition: sql_fun2
     state: present
-    desired_count: 1
+    desired_count: 2
 
 - name: Setup ECS service for javascript_password on challenges cluster
   ecs_service:
     name: javascript_password
-    cluster: neverlan_challenges
+    cluster: neverlan_challenges_medium
     task_definition: javascript_password
     state: present
-    desired_count: 1
+    desired_count: 2
 
 - name: Setup ECS service for bringing_it_all_together on challenges cluster
   ecs_service:
     name: bringing_it_all_together
-    cluster: neverlan_challenges
+    cluster: neverlan_challenges_medium
     task_definition: bringing_it_all_together
     state: present
-    desired_count: 1
+    desired_count: 2
 
 - name: Setup ECS service for know_your_shortcuts on challenges cluster
   ecs_service:
     name: know_your_shortcuts
-    cluster: neverlan_challenges
+    cluster: neverlan_challenges_medium
     task_definition: know_your_shortcuts
     state: present
-    desired_count: 1
+    desired_count: 2
+
+- name: Setup ECS service for cookie_monster on challenges cluster
+  ecs_service:
+    name: cookie_monster
+    cluster: neverlan_challenges_medium
+    task_definition: cookie_monster
+    state: present
+    desired_count: 2
+
+- name: Setup ECS service for antihuman on challenges cluster
+  ecs_service:
+    name: antihuman
+    cluster: neverlan_challenges_medium
+    task_definition: antihuman
+    state: present
+    desired_count: 2
+
+- name: Setup ECS service for bigantihuman on challenges cluster
+  ecs_service:
+    name: bigantihuman
+    cluster: neverlan_challenges_medium
+    task_definition: bigantihuman
+    state: present
+    desired_count: 2
+
+- name: Setup ECS service for arch_dark on challenges cluster
+  ecs_service:
+    name: arch_dark
+    cluster: neverlan_challenges_medium
+    task_definition: arch_dark
+    state: present
+    desired_count: 2
+
+- name: Setup ECS service for sqli_fun1 on challenges cluster
+  ecs_service:
+    name: sqli_fun1
+    cluster: neverlan_challenges_medium
+    task_definition: sqli_fun1
+    state: present
+    desired_count: 2

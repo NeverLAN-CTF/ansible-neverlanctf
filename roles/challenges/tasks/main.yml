@@ -3,4 +3,4 @@
   when: ec2_tag_Name == "none"
 
 - include: provision.yml
-  when: ec2_tag_Name == "neverlan_challenges"
+  when: ec2_tag_Name == "neverlan_challenges_medium"
