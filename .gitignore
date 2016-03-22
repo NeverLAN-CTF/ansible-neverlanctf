@@ -69,3 +69,4 @@ target/
 .python-version
 
 *swp
+*.retry
