@@ -178,3 +178,18 @@
     state: present
     family: sqli_fun2
     region: us-east-1
+
+- name: Setup ECS task definition for whatnowzane on the challenges cluster
+  ecs_taskdefinition:
+    containers:
+    - name: whatnowzane
+      cpu: 256
+      essential: true
+      image: neverlanctf/whatnowzane
+      memory: 256
+      portMappings:
+        - containerPort: 5000
+          hostPort: 8093
+    state: present
+    family: whatnowzane
+    region: us-east-1

@@ -94,3 +94,11 @@
     task_definition: sqli_fun2
     state: present
     desired_count: 2
+
+- name: Setup ECS service for whatnowzane on challenges cluster
+  ecs_service:
+    name: whatnowzane
+    cluster: neverlan_challenges_medium
+    task_definition: whatnowzane
+    state: present
+    desired_count: 2
